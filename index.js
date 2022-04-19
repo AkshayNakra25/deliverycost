@@ -2,7 +2,7 @@ const readline = require('readline');
 const BasePriceAndQuantity = require('./src/modules/BasePrice&Quantity');
 const Package = require("./src/modules/Package");
 const {
-    inputIsValid
+    inputIsValid, notNumber
 } = require("./src/helpers/errorHandling");
 const {
     INVALID_FORMAT,
@@ -34,9 +34,14 @@ rl.on('close', function () {
         try {
             var package = new Package(input[eachPackage]);
             const deliveryCost = basePrice.getBasePrice() + package.getDeliveryCost();
-            const discount = deliveryCost * package.getDiscount();
+            const discount = deliveryCost * package.getDiscount();   
             const totalCost = deliveryCost - discount;
-            console.log(package.getPackageId(), discount, totalCost);
+            if(notNumber(discount) || notNumber(totalCost)){
+                console.error(INVALID_PACKAGE);
+            }else{
+                console.log(package.getPackageId(), discount, totalCost);
+            }
+           
         } catch (err) {
             console.error(INVALID_PACKAGE);
         }

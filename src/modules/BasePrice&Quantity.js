@@ -6,7 +6,8 @@ class BasePriceAndQuantity {
         const [basePrice, quantity] = packageInfo.split(" ");
         if(!ifNull(basePrice) && !notNumber(basePrice) 
             && !ifNull(quantity) && !notNumber(quantity)){
-                [this.basePrice, this.quantity] = packageInfo.split(" ");
+                this.basePrice = parseFloat(basePrice);
+                this.quantity = parseFloat(quantity);
         }
     }
 

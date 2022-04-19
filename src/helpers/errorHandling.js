@@ -1,7 +1,8 @@
 const offers = require("../data/offers.json");
 const {
     BASEPRICE_INDEX,
-    PACKAGE_MISSING
+    PACKAGE_MISSING,
+    INVALID_FORMAT
 } = require("../data/constants");
 
 function ifNull(value){
@@ -44,7 +45,7 @@ function checkOfferId(value){
 function inputIsValid(input){
     if (input.length <= 1) {
         console.error(INVALID_FORMAT);
-    }else if(input.length - 1 <= input[BASEPRICE_INDEX].split(" ")[BASEPRICE_INDEX + 1]){
+    }else if(input.length - 1 < input[BASEPRICE_INDEX].split(" ")[BASEPRICE_INDEX + 1]){
         console.error(PACKAGE_MISSING);
     }
 }

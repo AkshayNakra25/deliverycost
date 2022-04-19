@@ -11,7 +11,10 @@ class Package {
         if(!ifNull(packageWeight) && !notNumber(packageWeight) 
             && !ifNull(packageDistance) && !notNumber(packageDistance)
             && !checkOfferId(offerId) && !ifNull(packageId)){
-                [this.packageId, this.packageWeight, this.packageDistance, this.offerId] = packageInfo.split(" ");
+                this.packageId = packageId;
+                this.packageWeight = parseFloat(packageWeight);
+                this.packageDistance = parseFloat(packageDistance);
+                this.offerId = offerId;
         }
 
     }
