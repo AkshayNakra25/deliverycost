@@ -1,10 +1,12 @@
-
+const { ifNull, notNumber} = require("../helpers/errorHandling");
+ 
 class BasePriceAndQuantity {
 
     constructor(packageInfo){
-        [this.basePrice, this.quantity] = packageInfo.split(" ");
-        if(isNaN(this.basePrice)){
-            console.error("Base Quantity needs to be a number");
+        const [basePrice, quantity] = packageInfo.split(" ");
+        if(!ifNull(basePrice) && !notNumber(basePrice) 
+            && !ifNull(quantity) && !notNumber(quantity)){
+                [this.basePrice, this.quantity] = packageInfo.split(" ");
         }
     }
 

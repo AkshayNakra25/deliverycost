@@ -1,42 +1,50 @@
 const offers = require("../data/offers.json");
-
+const inRange = require("../helpers/inRange");
+const { ifNull, notNumber, checkOfferId} = require("../helpers/errorHandling");
+ 
 
 class Package {
 
     constructor(packageInfo) {
-        [this.packageId, this.packageWeight, this.packageDistance, this.offerId] = packageInfo.split(" ");
+        const [packageId, packageWeight, packageDistance, offerId] = packageInfo.split(" ");
+        if(!ifNull(packageWeight) && !notNumber(packageWeight) 
+            && !ifNull(packageDistance) && !notNumber(packageDistance)
+            && !checkOfferId(offerId) && !ifNull(packageId)){
+                [this.packageId, this.packageWeight, this.packageDistance, this.offerId] = packageInfo.split(" ");
+        }
+
     }
 
-    getPackageId(){
+    getPackageId() {
         return this.packageId;
     }
 
-    getPackageWeight(){
-        return this.packageWeight;
+    getPackageWeight() {
+        return parseFloat(this.packageWeight);
     }
 
-    getPackageDistance(){
-        return this.packageDistance;
+    getPackageDistance() {
+        return parseFloat(this.packageDistance);
     }
 
-    getPackageOfferId(){
+    getPackageOfferId() {
         return this.offerId;
     }
 
-    getDeliveryCost(){
-        return parseFloat((this.packageWeight *  10) + (this.packageDistance * 5));
+    getDeliveryCost() {
+        return parseFloat((this.packageWeight * 10) + (this.packageDistance * 5));
     }
 
-    getDiscount(){
-        let offerDetails = offers[this.offerId];
-        if(offerDetails.minDistance <= this.packageDistance && offerDetails.maxDistance > this.packageDistance
-        && offerDetails.minWeight <= this.packageWeight && offerDetails.maxWeight > this.packageWeight){
+    getDiscount() {
+        let offerDetails = offers[this.offerId.toUpperCase()];
+        if (inRange(offerDetails.minDistance, offerDetails.maxDistance, this.packageDistance) &&
+            inRange(offerDetails.minWeight, offerDetails.maxWeight, this.packageWeight)) {
             return offerDetails.discountPercentage / 100;
-        }else{
+        } else {
             return 0;
         }
     }
-    
+
 }
 
 module.exports = Package;

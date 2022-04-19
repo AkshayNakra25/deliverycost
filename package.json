@@ -4,7 +4,7 @@
   "description": "Calculate Delivery cost with offers",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/AkshayNakra25/deliverycost/issues"
   },
-  "homepage": "https://github.com/AkshayNakra25/deliverycost#readme"
+  "homepage": "https://github.com/AkshayNakra25/deliverycost#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
 }
