@@ -2,6 +2,9 @@ const readline = require('readline');
 const BasePriceAndQuantity = require('./src/modules/BasePrice&Quantity');
 const Package = require("./src/modules/Package");
 const {
+    inputIsValid
+} = require("./src/helpers/errorHandling");
+const {
     INVALID_FORMAT,
     INVALID_BASEPRICE,
     INVALID_PACKAGE,
@@ -21,9 +24,7 @@ rl.on('line', function (cmd) {
 });
 
 rl.on('close', function () {
-    if (input.length <= 1) {
-        console.error(INVALID_FORMAT);
-    }
+    inputIsValid(input);
     try {
         var basePrice = new BasePriceAndQuantity(input[BASEPRICE_INDEX]);
     } catch (err) {
@@ -32,14 +33,13 @@ rl.on('close', function () {
     for (let eachPackage = PACKAGES_STARTING_INDEX; eachPackage < input.length; eachPackage++) {
         try {
             var package = new Package(input[eachPackage]);
+            const deliveryCost = basePrice.getBasePrice() + package.getDeliveryCost();
+            const discount = deliveryCost * package.getDiscount();
+            const totalCost = deliveryCost - discount;
+            console.log(package.getPackageId(), discount, totalCost);
         } catch (err) {
             console.error(INVALID_PACKAGE);
         }
-        const deliveryCost = basePrice.getBasePrice() + package.getDeliveryCost();
-        const discountPercentage = package.getDiscount()
-        const discount = deliveryCost * discountPercentage;
-        const totalCost = deliveryCost - discount;
-        console.log(package.getPackageId(), " ", discount, " ", totalCost);
     }
 
 });

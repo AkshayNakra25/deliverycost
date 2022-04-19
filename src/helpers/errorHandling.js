@@ -1,4 +1,8 @@
 const offers = require("../data/offers.json");
+const {
+    BASEPRICE_INDEX,
+    PACKAGE_MISSING
+} = require("../data/constants");
 
 function ifNull(value){
     try{
@@ -37,4 +41,12 @@ function checkOfferId(value){
     }
 }
 
-module.exports = { ifNull, notNumber, checkOfferId}
+function inputIsValid(input){
+    if (input.length <= 1) {
+        console.error(INVALID_FORMAT);
+    }else if(input.length - 1 <= input[BASEPRICE_INDEX].split(" ")[BASEPRICE_INDEX + 1]){
+        console.error(PACKAGE_MISSING);
+    }
+}
+
+module.exports = { ifNull, notNumber, checkOfferId, inputIsValid}
