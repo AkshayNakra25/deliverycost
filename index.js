@@ -30,6 +30,8 @@ rl.on('close', function () {
     } catch (err) {
         console.error(INVALID_BASEPRICE);
     }
+
+    // Complexity O(n -1) n is the number of packages
     for (let eachPackage = PACKAGES_STARTING_INDEX; eachPackage < input.length; eachPackage++) {
         try {
             var package = new Package(input[eachPackage]);
