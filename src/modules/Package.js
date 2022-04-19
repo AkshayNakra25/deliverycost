@@ -1,5 +1,6 @@
 const offers = require("../data/offers.json");
 const inRange = require("../helpers/inRange");
+const { WEIGHT_MULTIPLER, DISTANCE_MULTIPLER, PERCENTAGE, ZERO_PERCENTAGE } = require("../data/constants");
 const { ifNull, notNumber, checkOfferId} = require("../helpers/errorHandling");
  
 
@@ -32,16 +33,16 @@ class Package {
     }
 
     getDeliveryCost() {
-        return parseFloat((this.packageWeight * 10) + (this.packageDistance * 5));
+        return parseFloat((this.packageWeight * WEIGHT_MULTIPLER) + (this.packageDistance * DISTANCE_MULTIPLER));
     }
 
     getDiscount() {
         let offerDetails = offers[this.offerId.toUpperCase()];
         if (inRange(offerDetails.minDistance, offerDetails.maxDistance, this.packageDistance) &&
             inRange(offerDetails.minWeight, offerDetails.maxWeight, this.packageWeight)) {
-            return offerDetails.discountPercentage / 100;
+            return offerDetails.discountPercentage / PERCENTAGE;
         } else {
-            return 0;
+            return ZERO_PERCENTAGE;
         }
     }
 
