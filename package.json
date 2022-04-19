@@ -1,0 +1,19 @@
+{
+  "name": "deliverycost",
+  "version": "0.0.1",
+  "description": "Calculate Delivery cost with offers",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AkshayNakra25/deliverycost.git"
+  },
+  "author": "Akshay Nakra",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AkshayNakra25/deliverycost/issues"
+  },
+  "homepage": "https://github.com/AkshayNakra25/deliverycost#readme"
+}
